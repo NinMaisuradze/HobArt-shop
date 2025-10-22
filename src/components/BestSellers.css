@@ -1,0 +1,86 @@
+.best-sellers {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.best-sellers .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.best-sellers h2 {
+  font-size: 2.5rem;
+  color: #00032c;
+  margin-bottom: 10px;
+}
+
+.best-sellers p {
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.best-sellers .grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.best-sellers .card {
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.best-sellers .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.best-sellers .card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.best-sellers .card-content {
+  padding: 15px;
+  text-align: left;
+}
+
+.best-sellers .card-content h3 {
+  color: #00032c;
+  margin: 0 0 10px;
+}
+
+.best-sellers .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.best-sellers .card-footer button {
+  background-color: #00032c;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.best-sellers .card-footer button:hover {
+  background-color: #b48b18;
+}
+
+/* მობილური */
+@media (max-width: 768px) {
+  .best-sellers .grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}

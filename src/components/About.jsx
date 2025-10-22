@@ -1,23 +1,25 @@
+import './about.css';
+
 const About = () => {
   return (
-    <section
-      className="bg-white text-gray-900 py-16 px-6 md:px-20 text-center"
-      aria-labelledby="about-heading"
-    >
-      <div className="max-w-3xl mx-auto">
-        <h2
-          id="about-heading"
-          className="text-3xl md:text-4xl font-bold text-[#00032c] mb-6"
-        >
-          ჩვენს შესახებ
-        </h2>
-        <p className="text-base md:text-lg leading-relaxed text-gray-700">
-          ჩვენ 2021 წლიდან ვაწარმოებთ სხვადასხვა ხელნაკეთ ნივთებს და
-          სადღესასწაულო დეკორაციებს.{" "}
-          <span className="font-semibold text-[#b48b18]">HobArt</span> არის
-          ბრენდი, რომელსაც მოაქვს სიხარული თითოეული მომხმარებლის ცხოვრებაში.
-          ჩვენ ვიყენებთ მაღალ ხარისხიან ნედლეულს, რათა შევქმნათ უნიკალური
-          ხელნაკეთი დეკორაციები.
+    <section className="about-section">
+      <div className="about-container">
+        <h2>ჩვენს შესახებ</h2>
+        <p>
+          <span className="font-semibold">HobArt</span> — ეს არის ხელოვნებისა და ემოციის გაერთიანება. 
+          ჩვენ ვქმნით პროდუქტებს, რომლებიც არა მხოლოდ უზრუნველყოფენ 
+          ინტერიერის სილამაზეს, არამედ თქვენს ყოველდღიურ გარემოს 
+          სითბოსა და გულით 만든 ენერგიას მატებენ.
+        </p>
+        <p>
+          2021 წლიდან ვამზადებთ{" "}
+          <span className="font-medium">
+            სანთლებს, დეკორაციებს, ებოქსიდის აქსესუარებს, კულონებს, 
+            სამკაულებს და ინტერიერის ნივთებს
+          </span>.  
+          თითოეული ნამუშევარი იქმნება მაღალი ხარისხის ნედლეულით 
+          და დიდი სიყვარულით — იმიტომ რომ თქვენი ტკბილი სივრცე 
+          ჩვენთვის მთავარია.
         </p>
       </div>
     </section>

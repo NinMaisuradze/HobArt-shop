@@ -1,19 +1,47 @@
-:root {
-  --text: #00032c;
-  --primary: #b48b18;
-  --panel-bg: #ffffff;
+.contact {
+  padding: 2rem 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #fff; /* ტექსტი თეთრი */
+  background: transparent;
 }
 
-/* === Contact Section === */
+.contact h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.contact p {
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.contact-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* რუკა მარცხნივ */
+.map-wrapper {
+  flex: 1 1 50%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* ტექსტი მარჯვნივ */
 .contact-info {
-  margin-top: 1.5rem;
-  text-align: center;
-  font-size: 1rem;
-  line-height: 1.6;
+  flex: 1 1 40%;
+  text-align: left;
+  color: #fff;
 }
 
 .contact-info a {
-  color: var(--primary, #b48b18);
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -21,71 +49,29 @@
   text-decoration: underline;
 }
 
-.contact-back {
-  margin-top: 2rem;
-  text-align: center;
-}
-
 .btn-primary {
-  display: inline-block;
-  padding: 0.6rem 1.2rem;
-  background-color: var(--primary, #b48b18);
+  background-color: #ffffff;
   color: #fff;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
-  background-color: #946c12;
+  background-color: #00032c;
 }
 
-/* === Map Embed === */
-.map-wrapper {
-  width: 100%;
-  max-width: 980px;
-  margin: 2rem auto;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  background: var(--panel-bg);
-}
-
-.map-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-/* === Responsive === */
+/* მობილურზე ქვემოთ ჩამოიტანოს */
 @media (max-width: 768px) {
-  .contact {
-    padding: 2rem 1rem;
+  .contact-layout {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .contact h2 {
-    font-size: 1.6rem;
-  }
-
-  .contact p {
-    font-size: 0.95rem;
-  }
-
-  .map-wrapper {
-    margin: 1.5rem auto;
-    border-radius: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact h2 {
-    font-size: 1.4rem;
-  }
-
-  .contact p {
-    font-size: 0.9rem;
+  .map-wrapper,
+  .contact-info {
+    flex: 1 1 100%;
+    text-align: center;
   }
 }

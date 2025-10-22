@@ -1,0 +1,37 @@
+.about-section {
+  background-color: rgb(226, 226, 226);  /* თეთრი ფონისთვის */
+  color: black;              /* შავი ტექსტისთვის */
+  padding: 6rem 1.5rem;      /* Tailwind-ის py-24 px-6 */
+  display: flex;
+  justify-content: center;
+}
+
+.about-section .about-container {
+  max-width: 48rem;          /* Tailwind max-w-3xl */
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2.25rem;        /* Tailwind text-4xl */
+  font-weight: 700;
+  color: #00032c;            /* შენთვის სასურველი ფერი */
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;    /* tracking-wide */
+}
+
+.about-section p {
+  font-size: 1.125rem;       /* Tailwind text-lg */
+  line-height: 1.75rem;      /* leading-relaxed */
+  margin-bottom: 1.5rem;
+  color: #000;               /* შავი ტექსტისთვის */
+}
+
+.about-section span.font-semibold {
+  font-weight: 600;
+  color: #b48b18;            /* HobArt-ის ფერი */
+}
+
+.about-section span.font-medium {
+  font-weight: 500;
+  color: #00032c;            /* ნახსენები პროდუქტის ფერი */
+}

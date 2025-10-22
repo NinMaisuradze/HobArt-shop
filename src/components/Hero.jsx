@@ -1,35 +1,33 @@
+// src/components/Hero.jsx
 import "./Hero.css";
+import { useEffect, useState } from "react";
+import s1 from "./images/s1.jpg";
+import s2 from "./images/s2.jpg";
+import s3 from "./images/s3.jpg";
+import s4 from "./images/s4.jpg";
+import s5 from "./images/s5.jpg";
 
-function Hero() {
+export default function Hero() {
+  const images = [s1, s2, s3, s4, s5];
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <section
-      className="hero bg-cover bg-center text-center py-32 px-6 font-poppins text-[#00032c]"
-      role="banner"
-      aria-labelledby="hero-heading"
+      className="hero"
+      style={{ backgroundImage: `url(${images[current]})` }}
     >
-      <div className="max-w-3xl mx-auto bg-white/60 backdrop-blur-sm rounded-2xl p-10 shadow-lg">
-        <h1
-          id="hero-heading"
-          className="text-4xl md:text-5xl font-semibold mb-6"
-        >
-          HobArt - ჰობარტი
-        </h1>
-        <p className="text-lg md:text-xl mb-8">
-          Thank you for popping by — visit my website and explore handmade joy!
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#products"
-            className="bg-[#b48b18] text-white px-8 py-3 rounded-full font-medium hover:bg-[#9c7815] transition"
-            aria-label="Browse HobArt products"
-          >
-            Shop Now
-          </a>
-        </div>
-      </div>
+      <h1>Welcome to HobArt</h1>
+      <p>Discover unique handcrafted items</p>
+      <a href="#best-sellers" className="btn-primary">
+        Shop Now
+      </a>
     </section>
   );
 }
-
-export default Hero;

@@ -3,7 +3,6 @@
   height: 80vh;
   background-size: cover;
   background-position: center;
-  animation: slide 15s infinite ease-in-out;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,11 +12,27 @@
   transition: background-image 1s ease-in-out;
 }
 
-/* Keyframes for background slideshow */
-@keyframes slide {
-  0%   { background-image: url("src/image/469935840_543045795372448_4358835791200898955_n.jpg"); }
-  25%  { background-image: url("src/image/476844663_545269585209836_6888508904361484305_n.jpg"); }
-  50%  { background-image: url("src/image/480176641_550031271400334_6041266012107325197_n.jpg"); }
-  75%  { background-image: url("src/image/480447180_550031291400332_8704963933822586531_n.jpg"); }
-  100% { background-image: url("src/image/480486467_550044434732351_1271095641513238410_n.jpg"); }
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  color: #000000 !important;
+  background: none !important;
+  border: none !important;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-primary:hover {
+  text-decoration: underline !important;
 }
