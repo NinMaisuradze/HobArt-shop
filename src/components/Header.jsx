@@ -3,17 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import "./styles/style.css";
 import logo from "../assets/logo-removebg-preview.png";
 import { AccessibilityContext } from "../contexts/AccessibilityContext";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const [shopOpen, setShopOpen] = useState(false);
+  const [decorationOpen, setDecorationOpen] = useState(false); // Decoration Candle submenu
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [accessPanelOpen, setAccessPanelOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+
   const navigate = useNavigate();
   const accessRef = useRef(null);
-  const { setTextSize, setHighContrast, setIsMuted, disableAccessibility } = useContext(AccessibilityContext);
+  const langRef = useRef(null);
   const productBtnRef = useRef(null);
   const submenuRef = useRef(null);
+
+  const { setTextSize, setHighContrast, setIsMuted, disableAccessibility } = useContext(AccessibilityContext);
+  const { t, i18n } = useTranslation();
 
   function submitSearch(e) {
     e.preventDefault();
@@ -26,18 +33,17 @@ export default function Header() {
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (accessRef.current && !accessRef.current.contains(e.target)) {
+      if (accessRef.current && !accessRef.current.contains(e.target)) setAccessPanelOpen(false);
+      if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false);
+    }
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
         setAccessPanelOpen(false);
+        setLangOpen(false);
       }
     }
-
-    function handleKeyDown(e) {
-      if (e.key === "Escape") setAccessPanelOpen(false);
-    }
-
     document.addEventListener("click", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
@@ -47,127 +53,148 @@ export default function Header() {
   function toggleProductList(e) {
     e.preventDefault();
     setShopOpen((s) => !s);
+    setDecorationOpen(false); // reset Decoration Candle when closing Products
+  }
+
+  function toggleDecorationList(e) {
+    e.preventDefault();
+    setDecorationOpen((s) => !s);
   }
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (!productBtnRef.current.contains(e.target) && !submenuRef.current.contains(e.target)) {
-        setShopOpen(false);
-      }
+      if (!productBtnRef.current.contains(e.target) && !submenuRef.current.contains(e.target)) setShopOpen(false);
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  function changeLanguage(lang) {
+    i18n.changeLanguage(lang);
+    setLangOpen(false);
+  }
+
   return (
     <header className="main-header">
-      <div className="header-inner">
+      {/* ჰედერის ზედა ნაწილი */}
+      <div className="header-inner" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px" }}>
         <div className="logo-left">
           <Link to="/" className="logo" aria-label="HobArt">
-            <img src={logo} alt="HobArt logo" />
+            <img src={logo} alt="HobArt logo" style={{ height: "50px" }} />
           </Link>
         </div>
 
-        <div className="right-area">
-          <div className="header-controls">
-            <div className={`access-header ${accessPanelOpen ? "open" : ""}`} ref={accessRef}>
-              <button className="access-toggle small-btn" aria-expanded={accessPanelOpen} aria-controls="access-panel" onClick={() => setAccessPanelOpen((s) => !s)}>
-                Accessibility
-                <p style={{ transform: accessPanelOpen ? "rotate(180deg)" : "" }}>▾</p>
-              </button>
-              <div id="access-panel" className="access-panel" role="region" aria-label="Accessibility options" hidden={!accessPanelOpen}>
+        <div className="right-area" style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+          {/* Accessibility */}
+          <div className={`access-header ${accessPanelOpen ? "open" : ""}`} ref={accessRef} style={{ position: "relative" }}>
+            <button
+              className="access-toggle small-btn"
+              aria-expanded={accessPanelOpen}
+              aria-controls="access-panel"
+              onClick={() => setAccessPanelOpen((s) => !s)}
+              style={{ cursor: "pointer" }}
+            >
+              Accessibility <span style={{ display: "inline-block", transform: accessPanelOpen ? "rotate(180deg)" : "", marginLeft: "5px" }}>▾</span>
+            </button>
+            {accessPanelOpen && (
+              <div className="access-panel" role="region" aria-label="Accessibility options" style={{ position: "absolute", top: "100%", right: 0, background: "#fff", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", zIndex: 1000 }}>
                 <div className="access-controls">
-                  <div className="control-row">
-                    <button className="small-btn" onClick={() => setTextSize((s) => Math.min(s + 10, 200))}>
-                      A+
-                    </button>
-                    <button className="small-btn" onClick={() => setTextSize((s) => Math.max(s - 10, 60))}>
-                      A-
-                    </button>
-                    <button className="small-btn" onClick={() => setHighContrast((v) => !v)}>
-                      🌓
-                    </button>
-                    <button className="small-btn" onClick={() => setIsMuted((m) => !m)}>
-                      🔊
-                    </button>
+                  <div className="control-row" style={{ display: "flex", gap: "5px", marginBottom: "5px" }}>
+                    <button className="small-btn" onClick={() => setTextSize((s) => Math.min(s + 10, 200))}>A+</button>
+                    <button className="small-btn" onClick={() => setTextSize((s) => Math.max(s - 10, 60))}>A-</button>
+                    <button className="small-btn" onClick={() => setHighContrast((v) => !v)}>🌓</button>
+                    <button className="small-btn" onClick={() => setIsMuted((m) => !m)}>🔊</button>
                   </div>
                   <div className="access-actions">
-                    <button
-                      className="disable-frame"
-                      onClick={() => {
-                        disableAccessibility();
-                        setAccessPanelOpen(false);
-                      }}
-                    >
-                      Disable accessibility
-                    </button>
+                    <button className="disable-frame" onClick={() => { disableAccessibility(); setAccessPanelOpen(false); }}>Disable accessibility</button>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
+          </div>
 
-            <div className="utility-icons">
-              <button className="icon-btn" aria-label="Profile">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                  <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M20 21v-1c0-2.761-3.582-5-8-5s-8 2.239-8 5v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              <button className="icon-btn" aria-label="Search" onClick={() => setSearchOpen((s) => !s)}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                  <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              <button className="icon-btn" aria-label="Cart">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                  <path d="M6 6h15l-1.5 9h-12L6 6z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="10" cy="20" r="1" fill="currentColor" />
-                  <circle cx="18" cy="20" r="1" fill="currentColor" />
-                </svg>
-              </button>
-            </div>
+          {/* Language switcher */}
+          <div className="language-switcher" ref={langRef} style={{ position: "relative" }}>
+            <button
+              className="lang-btn"
+              onClick={() => setLangOpen((s) => !s)}
+              style={{ display: "flex", alignItems: "center", gap: "5px", background: "none", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "4px", color: "#777", cursor: "pointer" }}
+            >
+              🇬🇪 GEORGIA (GEL ₾) <span style={{ transform: langOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▾</span>
+            </button>
+            {langOpen && (
+              <div style={{ position: "absolute", top: "calc(100% + 5px)", left: 0, background: "#fff", border: "1px solid #ccc", borderRadius: "4px", minWidth: "180px", zIndex: 1000 }}>
+                <button
+                  onClick={() => changeLanguage("ka")}
+                  style={{ display: "flex", alignItems: "center", gap: "5px", width: "100%", padding: "8px 12px", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  🇬🇪 GEORGIA (GEL ₾)
+                </button>
+                <button
+                  onClick={() => changeLanguage("en")}
+                  style={{ display: "flex", alignItems: "center", gap: "5px", width: "100%", padding: "8px 12px", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  🇬🇧 ENGLISH (USD $)
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Utility icons */}
+          <div className="utility-icons" style={{ display: "flex", gap: "10px" }}>
+            <button className="icon-btn" aria-label="Profile">{/* Profile SVG */}</button>
+            <button className="icon-btn" aria-label="Search" onClick={() => setSearchOpen((s) => !s)}>{/* Search SVG */}</button>
+            <button className="icon-btn" aria-label="Cart">{/* Cart SVG */}</button>
           </div>
         </div>
       </div>
 
-      <nav className="primary-nav" role="navigation" aria-label="Main navigation">
-        <ul className="nav-list">
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/blog">Blog</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
+      {/* Navigation (header-ის ქვემოთ) */}
+      <nav className="primary-nav" role="navigation" aria-label="Main navigation" style={{ marginTop: "10px" }}>
+        <ul className="nav-list" style={{ display: "flex", gap: "25px", fontSize: "18px", fontWeight: 500 }}>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/blog">Blog</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
 
-          <li className="has-submenu">
-            <button className="submenu-toggle" aria-haspopup="true" aria-expanded={shopOpen} onClick={toggleProductList} ref={productBtnRef}>
-              New Product ▾
+          {/* Products with nested subcategory */}
+          <li className="has-submenu" style={{ position: "relative" }}>
+            <button
+              className="submenu-toggle"
+              aria-haspopup="true"
+              aria-expanded={shopOpen}
+              onClick={toggleProductList}
+              ref={productBtnRef}
+              style={{ background: "none", border: "none", cursor: "pointer", fontSize: "18px", fontWeight: 500 }}
+            >
+              Products ▾
             </button>
-            <ul className={`submenu${shopOpen ? " open" : ""}`} ref={submenuRef}>
-              <li>
-                <Link to="/products/decoration-candle">Decoration Candle</Link>
-              </li>
-              <li>
-                <Link to="/products/epoxy-decor">Epoxy Decor</Link>
-              </li>
-              <li>
-                <Link to="/products/holiday-decor">Holiday Decor</Link>
-              </li>
-              <li>
-                <Link to="/products/accessories">Accessories</Link>
-              </li>
-              <li>
-                <Link to="/products/plaster-decor">Plaster Decor</Link>
-              </li>
-              <li>
-                <Link to="/products/felt-toys">Felt Toys</Link>
-              </li>
-            </ul>
+            {shopOpen && (
+              <ul ref={submenuRef} style={{ position: "absolute", top: "100%", left: 0, background: "#fff", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", zIndex: 1000, minWidth: "200px" }}>
+                
+                {/* Decoration Candle with nested subcategory */}
+                <li style={{ position: "relative" }}>
+                  <button
+                    style={{ background: "none", border: "none", cursor: "pointer", fontSize: "16px", width: "100%", textAlign: "left" }}
+                    onClick={toggleDecorationList}
+                  >
+                    Decoration Candle ▾
+                  </button>
+                  {decorationOpen && (
+                    <ul style={{ position: "absolute", top: 0, left: "100%", background: "#fff", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", minWidth: "180px" }}>
+                      <li>
+                        <Link to="/products/holiday-candle" style={{ fontSize: "16px" }}>Holiday Candle</Link>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+
+                <li><Link to="/products/epoxy-decor" style={{ fontSize: "16px" }}>Epoxy Decor</Link></li>
+                <li><Link to="/products/holiday-decor" style={{ fontSize: "16px" }}>Holiday Decor</Link></li>
+                <li><Link to="/products/accessories" style={{ fontSize: "16px" }}>Accessories</Link></li>
+                <li><Link to="/products/plaster-decor" style={{ fontSize: "16px" }}>Plaster Decor</Link></li>
+                <li><Link to="/products/felt-toys" style={{ fontSize: "16px" }}>Felt Toys</Link></li>
+              </ul>
+            )}
           </li>
         </ul>
       </nav>
