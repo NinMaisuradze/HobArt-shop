@@ -1,9 +1,8 @@
-
 import "./styles/style.css";
 
-import facebookIcon from './images/icons/facebook.svg';
-import instagramIcon from './images/icons/instagram.svg';
-import tiktokIcon from './images/icons/tiktok.svg';
+import facebookIcon from "./images/icons/facebook.svg";
+import instagramIcon from "./images/icons/instagram.svg";
+import tiktokIcon from "./images/icons/tiktok.svg";
 
 export default function Footer() {
   return (
@@ -19,6 +18,7 @@ export default function Footer() {
             >
               <img src={facebookIcon} alt="Facebook" />
             </a>
+
             <a
               href="https://instagram.com/HobArt0204"
               target="_blank"
@@ -27,6 +27,7 @@ export default function Footer() {
             >
               <img src={instagramIcon} alt="Instagram" />
             </a>
+
             <a
               href="https://www.tiktok.com/@hobarthandmade2020"
               target="_blank"

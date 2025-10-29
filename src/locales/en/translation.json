@@ -1,12 +1,22 @@
 {
-  "about": "About",
-  "blog": "Blog",
-  "contact": "Contact",
-  "newProduct": "New Product",
-  "decorationCandle": "Decoration Candle",
-  "epoxyDecor": "Epoxy Decor",
-  "holidayDecor": "Holiday Decor",
-  "accessories": "Accessories",
-  "plasterDecor": "Plaster Decor",
-  "feltToys": "Felt Toys"
+  "header": {
+    "about": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "newProduct": "New Product"
+  },
+  "about": {
+    "title": "About Us",
+    "text1": "HobArt is the combination of art and emotion. We create products that not only enhance your interior but also bring warmth and positive energy to your daily environment.",
+    "text2": "Since 2021 we have been making",
+    "textHighlight": "candles, decorations, epoxy accessories, pendants, jewelry, and interior items",
+    "text3": "Each piece is created with high-quality materials and lots of love — because your cozy space is important to us."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "text": "Find us here:",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "backHome": "Back to Home"
+  }
 }

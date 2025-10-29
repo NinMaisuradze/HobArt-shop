@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
+import * as en from "../locales/en/translation.json";
+import * as ka from "../locales/ka/translation.json";
 import "./Contact.css";
 
-export default function Contact() {
+export default function Contact({ lang }) {
+  // ავირჩიოთ ენა
+  const t = lang === "ka" ? ka.default : en.default;
+
   return (
-    <section className="contact">
-      <h2>Contact Us</h2>
-      <p>Find us here:</p>
+    <section className="contact-section">
+      <h2>{t.contactTitle}</h2>
+      <p>{t.contactText}</p>
 
       <div className="contact-layout">
         {/* რუკა მარცხნივ */}
@@ -22,14 +27,22 @@ export default function Contact() {
           />
         </div>
 
-        {/* ტექსტი მარჯვნივ */}
+        {/* კონტაქტის ინფორმაცია მარჯვნივ */}
         <div className="contact-info">
-          <p><strong>Phone:</strong> <a href="tel:+593585424">593585424</a></p>
-          <p><strong>Email:</strong> <a href="mailto:ninmaisuradze20@gmail.com">ninmaisuradze20@gmail.com</a></p>
+          <p>
+            <strong>{t.phoneLabel}:</strong>{" "}
+            <a href="tel:+593585424">593585424</a>
+          </p>
+          <p>
+            <strong>{t.emailLabel}:</strong>{" "}
+            <a href="mailto:ninmaisuradze20@gmail.com">
+              ninmaisuradze20@gmail.com
+            </a>
+          </p>
 
           <div style={{ marginTop: "20px" }}>
             <Link to="/" className="btn-primary">
-              Back to Home
+              {t.backHome}
             </Link>
           </div>
         </div>

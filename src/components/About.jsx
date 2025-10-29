@@ -1,25 +1,32 @@
 import "./About.css";
+import aboutVideo from "./images/video/ჩვენ შესახებ.mp4";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="about-section">
       <div className="about-container">
-        <h2>ჩვენს შესახებ</h2>
+        {/* 🎥 ვიდეო */}
+        <div className="about-video">
+          <video
+            src={aboutVideo}
+            controls
+            autoPlay
+            muted
+            loop
+            className="about-video-element"
+          />
+        </div>
+
+        {/* ტექსტი */}
+        <h2>{t("about.title")}</h2>
+        <p>{t("about.text1")}</p>
         <p>
-          <span className="font-semibold">HobArt</span> — ეს არის ხელოვნებისა და ემოციის გაერთიანება. 
-          ჩვენ ვქმნით პროდუქტებს, რომლებიც არა მხოლოდ უზრუნველყოფენ 
-          ინტერიერის სილამაზეს, არამედ თქვენს ყოველდღიურ გარემოს 
-          სითბოსა და გულით  ენერგიას მატებენ.
-        </p>
-        <p>
-          2021 წლიდან ვამზადებთ{" "}
-          <span className="font-medium">
-            სანთლებს, დეკორაციებს, ებოქსიდის აქსესუარებს, კულონებს, 
-            სამკაულებს და ინტერიერის ნივთებს
-          </span>.  
-          თითოეული ნამუშევარი იქმნება მაღალი ხარისხის ნედლეულით 
-          და დიდი სიყვარულით — იმიტომ რომ თქვენი ტკბილი სივრცე 
-          ჩვენთვის მთავარია.
+          {t("about.text2")}{" "}
+          <span className="font-medium">{t("about.textHighlight")}</span>{" "}
+          {t("about.text3")}
         </p>
       </div>
     </section>

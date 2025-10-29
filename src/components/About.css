@@ -1,37 +1,66 @@
 .about-section {
-  background-color: rgb(226, 226, 226);  /* თეთრი ფონისთვის */
-  color: black;              /* შავი ტექსტისთვის */
-  padding: 6rem 1.5rem;      /* Tailwind-ის py-24 px-6 */
+  background-color: rgb(245, 245, 245);  /* უფრო სუფთა, ნაზი ნაცრისფერი ფონისთვის */
+  color: black;
+  padding: 6rem 1.5rem;
   display: flex;
   justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.about-section:hover {
+  background-color: rgb(238, 238, 238); /* ლამაზი მსუბუქი ეფექტი hover-ზე */
 }
 
 .about-section .about-container {
-  max-width: 48rem;          /* Tailwind max-w-3xl */
+  max-width: 50rem;  /* ცოტათი მეტი სიგანე */
   text-align: center;
+  padding: 0 1rem;
 }
 
 .about-section h2 {
-  font-size: 2.25rem;        /* Tailwind text-4xl */
+  font-size: 2.5rem;        /* ცოტა დიდი და მნიშვნელოვანი */
   font-weight: 700;
-  color: #00032c;            /* შენთვის სასურველი ფერი */
+  color: #00032c;
   margin-bottom: 1rem;
-  letter-spacing: 0.05em;    /* tracking-wide */
+  letter-spacing: 0.05em;
+  text-transform: uppercase; /* უფრო ელეგანტური იერსახე */
 }
 
 .about-section p {
-  font-size: 1.125rem;       /* Tailwind text-lg */
-  line-height: 1.75rem;      /* leading-relaxed */
+  font-size: 1.125rem;
+  line-height: 1.75rem;
   margin-bottom: 1.5rem;
-  color: #000;               /* შავი ტექსტისთვის */
+  color: #1a1a1a; /* უფრო რბილი შავი */
 }
 
 .about-section span.font-semibold {
   font-weight: 600;
-  color: #b48b18;            /* HobArt-ის ფერი */
+  color: #b48b18;
+  text-decoration: underline dotted #b48b18; /* subtle დეკორატიული ეფექტი */
 }
 
 .about-section span.font-medium {
   font-weight: 500;
-  color: #00032c;            /* ნახსენები პროდუქტის ფერი */
+  color: #00032c;
+}
+
+.about-video {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 20px; /* უფრო რბილი კუთხეები */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* უფრო დრამატული ჩრდილი */
+  transition: transform 0.3s ease;
+}
+
+.about-video:hover {
+  transform: scale(1.02); /* პატარა enlarge hover-ზე */
+}
+
+.about-video-element {
+  width: 100%;
+  max-width: 850px;
+  border-radius: 20px;
+  display: block;
 }

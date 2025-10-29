@@ -5,6 +5,7 @@ import s1 from "./images/B1.jpg";
 import s2 from "./images/B2.jpg";
 import s3 from "./images/B3.jpg";
 
+
 const sampleData = [
   { id: 1, title: "წყვილის სანთელი", img: s1 },
   { id: 2, title: "ფენიქსის სამაჯური", img: s2 },

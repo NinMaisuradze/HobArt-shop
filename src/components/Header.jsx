@@ -7,8 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const [shopOpen, setShopOpen] = useState(false);
-  const [decorationOpen, setDecorationOpen] = useState(false); // Decoration Candle submenu
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [decorationOpen, setDecorationOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [accessPanelOpen, setAccessPanelOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -26,7 +25,6 @@ export default function Header() {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchOpen(false);
       setSearchQuery("");
     }
   }
@@ -50,20 +48,16 @@ export default function Header() {
     };
   }, []);
 
-  function toggleProductList(e) {
-    e.preventDefault();
-    setShopOpen((s) => !s);
-    setDecorationOpen(false); // reset Decoration Candle when closing Products
-  }
-
-  function toggleDecorationList(e) {
-    e.preventDefault();
-    setDecorationOpen((s) => !s);
-  }
-
   useEffect(() => {
     function handleClickOutside(e) {
-      if (!productBtnRef.current.contains(e.target) && !submenuRef.current.contains(e.target)) setShopOpen(false);
+      if (
+        productBtnRef.current &&
+        submenuRef.current &&
+        !productBtnRef.current.contains(e.target) &&
+        !submenuRef.current.contains(e.target)
+      ) {
+        setShopOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -76,8 +70,11 @@ export default function Header() {
 
   return (
     <header className="main-header">
-      {/* ჰედერის ზედა ნაწილი */}
-      <div className="header-inner" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px" }}>
+      {/* Header top */}
+      <div
+        className="header-inner"
+        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px" }}
+      >
         <div className="logo-left">
           <Link to="/" className="logo" aria-label="HobArt">
             <img src={logo} alt="HobArt logo" style={{ height: "50px" }} />
@@ -94,19 +91,52 @@ export default function Header() {
               onClick={() => setAccessPanelOpen((s) => !s)}
               style={{ cursor: "pointer" }}
             >
-              Accessibility <span style={{ display: "inline-block", transform: accessPanelOpen ? "rotate(180deg)" : "", marginLeft: "5px" }}>▾</span>
+              {t("accessibility")}{" "}
+              <span style={{ display: "inline-block", transform: accessPanelOpen ? "rotate(180deg)" : "", marginLeft: "5px" }}>
+                ▾
+              </span>
             </button>
             {accessPanelOpen && (
-              <div className="access-panel" role="region" aria-label="Accessibility options" style={{ position: "absolute", top: "100%", right: 0, background: "#fff", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", zIndex: 1000 }}>
+              <div
+                className="access-panel"
+                role="region"
+                aria-label="Accessibility options"
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  right: 0,
+                  background: "#fff",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  padding: "10px",
+                  zIndex: 1000,
+                }}
+              >
                 <div className="access-controls">
                   <div className="control-row" style={{ display: "flex", gap: "5px", marginBottom: "5px" }}>
-                    <button className="small-btn" onClick={() => setTextSize((s) => Math.min(s + 10, 200))}>A+</button>
-                    <button className="small-btn" onClick={() => setTextSize((s) => Math.max(s - 10, 60))}>A-</button>
-                    <button className="small-btn" onClick={() => setHighContrast((v) => !v)}>🌓</button>
-                    <button className="small-btn" onClick={() => setIsMuted((m) => !m)}>🔊</button>
+                    <button className="small-btn" onClick={() => setTextSize((s) => Math.min(s + 10, 200))}>
+                      A+
+                    </button>
+                    <button className="small-btn" onClick={() => setTextSize((s) => Math.max(s - 10, 60))}>
+                      A-
+                    </button>
+                    <button className="small-btn" onClick={() => setHighContrast((v) => !v)}>
+                      🌓
+                    </button>
+                    <button className="small-btn" onClick={() => setIsMuted((m) => !m)}>
+                      🔊
+                    </button>
                   </div>
                   <div className="access-actions">
-                    <button className="disable-frame" onClick={() => { disableAccessibility(); setAccessPanelOpen(false); }}>Disable accessibility</button>
+                    <button
+                      className="disable-frame"
+                      onClick={() => {
+                        disableAccessibility();
+                        setAccessPanelOpen(false);
+                      }}
+                    >
+                      {t("disableAccessibility")}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -118,81 +148,158 @@ export default function Header() {
             <button
               className="lang-btn"
               onClick={() => setLangOpen((s) => !s)}
-              style={{ display: "flex", alignItems: "center", gap: "5px", background: "none", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "4px", color: "#777", cursor: "pointer" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                background: "none",
+                border: "1px solid #ccc",
+                padding: "5px 10px",
+                borderRadius: "4px",
+                color: "#777",
+                cursor: "pointer",
+              }}
             >
-              🇬🇪 GEORGIA (GEL ₾) <span style={{ transform: langOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▾</span>
+              {i18n.language === "ka" ? "🇬🇪 GEORGIA (GEL ₾)" : "🇬🇧 ENGLISH (USD $)"}
+              <span style={{ transform: langOpen ? "rotate(180deg)" : "rotate(0deg)", marginLeft: "5px" }}>▾</span>
             </button>
             {langOpen && (
-              <div style={{ position: "absolute", top: "calc(100% + 5px)", left: 0, background: "#fff", border: "1px solid #ccc", borderRadius: "4px", minWidth: "180px", zIndex: 1000 }}>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 5px)",
+                  left: 0,
+                  background: "#fff",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  minWidth: "180px",
+                  zIndex: 1000,
+                }}
+              >
                 <button
                   onClick={() => changeLanguage("ka")}
-                  style={{ display: "flex", alignItems: "center", gap: "5px", width: "100%", padding: "8px 12px", background: "none", border: "none", cursor: "pointer" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    width: "100%",
+                    padding: "8px 12px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
                 >
                   🇬🇪 GEORGIA (GEL ₾)
                 </button>
                 <button
                   onClick={() => changeLanguage("en")}
-                  style={{ display: "flex", alignItems: "center", gap: "5px", width: "100%", padding: "8px 12px", background: "none", border: "none", cursor: "pointer" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    width: "100%",
+                    padding: "8px 12px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
                 >
                   🇬🇧 ENGLISH (USD $)
                 </button>
               </div>
             )}
           </div>
-
-          {/* Utility icons */}
-          <div className="utility-icons" style={{ display: "flex", gap: "10px" }}>
-            <button className="icon-btn" aria-label="Profile">{/* Profile SVG */}</button>
-            <button className="icon-btn" aria-label="Search" onClick={() => setSearchOpen((s) => !s)}>{/* Search SVG */}</button>
-            <button className="icon-btn" aria-label="Cart">{/* Cart SVG */}</button>
-          </div>
         </div>
       </div>
 
-      {/* Navigation (header-ის ქვემოთ) */}
+      {/* Navigation */}
       <nav className="primary-nav" role="navigation" aria-label="Main navigation" style={{ marginTop: "10px" }}>
         <ul className="nav-list" style={{ display: "flex", gap: "25px", fontSize: "18px", fontWeight: 500 }}>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/blog">Blog</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/about">{t("header.about")}</Link></li>
+          <li><Link to="/blog">{t("header.blog")}</Link></li>
+          <li><Link to="/contact">{t("header.contact")}</Link></li>
 
-          {/* Products with nested subcategory */}
-          <li className="has-submenu" style={{ position: "relative" }}>
+          {/* New Product Dropdown */}
+          <li className="has-submenu" style={{ position: "relative" }} ref={productBtnRef}>
             <button
               className="submenu-toggle"
               aria-haspopup="true"
               aria-expanded={shopOpen}
-              onClick={toggleProductList}
-              ref={productBtnRef}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShopOpen((prev) => !prev);
+                setDecorationOpen(false);
+              }}
               style={{ background: "none", border: "none", cursor: "pointer", fontSize: "18px", fontWeight: 500 }}
             >
-              Products ▾
+              {t("header.newProduct")} ▾
             </button>
+
             {shopOpen && (
-              <ul ref={submenuRef} style={{ position: "absolute", top: "100%", left: 0, background: "#fff", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", zIndex: 1000, minWidth: "200px" }}>
-                
-                {/* Decoration Candle with nested subcategory */}
+              <ul
+                ref={submenuRef}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: 0,
+                  background: "#fff",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  padding: "10px",
+                  zIndex: 1000,
+                  minWidth: "200px",
+                }}
+              >
                 <li style={{ position: "relative" }}>
                   <button
-                    style={{ background: "none", border: "none", cursor: "pointer", fontSize: "16px", width: "100%", textAlign: "left" }}
-                    onClick={toggleDecorationList}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      width: "100%",
+                      textAlign: "left",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDecorationOpen((prev) => !prev);
+                    }}
                   >
-                    Decoration Candle ▾
+                    {t("decorationCandle")} ▾
                   </button>
+
                   {decorationOpen && (
-                    <ul style={{ position: "absolute", top: 0, left: "100%", background: "#fff", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", minWidth: "180px" }}>
+                    <ul
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: "100%",
+                        background: "#fff",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px",
+                        padding: "10px",
+                        minWidth: "180px",
+                      }}
+                    >
                       <li>
-                        <Link to="/products/holiday-candle" style={{ fontSize: "16px" }}>Holiday Candle</Link>
+                        <Link to="/products/holiday-candle" style={{ fontSize: "16px" }}>
+                          {t("holidayDecor")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/products/decoration-candle" style={{ fontSize: "16px" }}>
+                          {t("decorationCandle")}
+                        </Link>
                       </li>
                     </ul>
                   )}
                 </li>
 
-                <li><Link to="/products/epoxy-decor" style={{ fontSize: "16px" }}>Epoxy Decor</Link></li>
-                <li><Link to="/products/holiday-decor" style={{ fontSize: "16px" }}>Holiday Decor</Link></li>
-                <li><Link to="/products/accessories" style={{ fontSize: "16px" }}>Accessories</Link></li>
-                <li><Link to="/products/plaster-decor" style={{ fontSize: "16px" }}>Plaster Decor</Link></li>
-                <li><Link to="/products/felt-toys" style={{ fontSize: "16px" }}>Felt Toys</Link></li>
+                <li><Link to="/products/epoxy-decor" style={{ fontSize: "16px" }}>{t("epoxy Decor")}</Link></li>
+                <li><Link to="/products/accessories" style={{ fontSize: "16px" }}>{t("accessories")}</Link></li>
+                <li><Link to="/products/plaster-decor" style={{ fontSize: "16px" }}>{t("plasterDecor")}</Link></li>
+                <li><Link to="/products/felt-toys" style={{ fontSize: "16px" }}>{t("feltToys")}</Link></li>
               </ul>
             )}
           </li>
