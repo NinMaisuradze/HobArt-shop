@@ -266,7 +266,7 @@ export default function Header() {
                       setDecorationOpen((prev) => !prev);
                     }}
                   >
-                    {t("decorationCandle")} ▾
+                    {t("DecorationCandle")} ▾
                   </button>
 
                   {decorationOpen && (
@@ -284,12 +284,12 @@ export default function Header() {
                     >
                       <li>
                         <Link to="/products/holiday-candle" style={{ fontSize: "16px" }}>
-                          {t("holidayDecor")}
+                          {t("Holiday Candle")}
                         </Link>
                       </li>
                       <li>
                         <Link to="/products/decoration-candle" style={{ fontSize: "16px" }}>
-                          {t("decorationCandle")}
+                          {t("Decoration Candle")}
                         </Link>
                       </li>
                     </ul>
@@ -298,8 +298,8 @@ export default function Header() {
 
                 <li><Link to="/products/epoxy-decor" style={{ fontSize: "16px" }}>{t("epoxy Decor")}</Link></li>
                 <li><Link to="/products/accessories" style={{ fontSize: "16px" }}>{t("accessories")}</Link></li>
-                <li><Link to="/products/plaster-decor" style={{ fontSize: "16px" }}>{t("plasterDecor")}</Link></li>
-                <li><Link to="/products/felt-toys" style={{ fontSize: "16px" }}>{t("feltToys")}</Link></li>
+                <li><Link to="/products/plaster-decor" style={{ fontSize: "16px" }}>{t("plaster Decor")}</Link></li>
+                <li><Link to="/products/felt-toys" style={{ fontSize: "16px" }}>{t("felt Toys")}</Link></li>
               </ul>
             )}
           </li>

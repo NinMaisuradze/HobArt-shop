@@ -12,11 +12,18 @@
     "textHighlight": "candles, decorations, epoxy accessories, pendants, jewelry, and interior items",
     "text3": "Each piece is created with high-quality materials and lots of love — because your cozy space is important to us."
   },
+  "bestSellersTitle": "Products",
+  "bestSellersText": "Check out our most popular handmade items",
+  "bestSeller1": "Couple Candle",
+  "bestSeller2": "Phoenix Bracelet",
+  "bestSeller3": "Pendant with Fresh Flowers",
   "contact": {
     "title": "Contact Us",
     "text": "Find us here:",
     "phoneLabel": "Phone",
+    "phone": "+593585424",
     "emailLabel": "Email",
+    "email": "ninmaisuradze20@gmail.com",
     "backHome": "Back to Home"
   }
 }

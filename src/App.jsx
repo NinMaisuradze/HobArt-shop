@@ -5,11 +5,18 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import SearchResults from "./pages/SearchResults";
 import BestSellers from "./components/BestSellers";
+import DecorationCandle from "./components/images/products/DecorationCandle";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 import "./components/styles/style.css";
+import BlogPost from "../src/pages/Blog/BlogPost";
+import BlogList from "../src/pages/Blog/BlogList";
+
+
 
 function InnerApp() {
+  const currentLang = "ka"; // ან "en" საჭიროებისამებრ
+
   return (
     <BrowserRouter>
       <Header />
@@ -23,9 +30,16 @@ function InnerApp() {
             </>
           }
         />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/search" element={<SearchResults />} />
+        <Route path="/contact" element={<Contact lang={currentLang} />} />
+        <Route path="/about" element={<About lang={currentLang} />} />
+        <Route path="/search" element={<SearchResults lang={currentLang} />} />
+        <Route
+          path="/products/decoration-candle"
+          element={<DecorationCandle lang={currentLang} />}
+        />
+        {/* ბლოგის გვერდები */}
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
       <Footer />
     </BrowserRouter>

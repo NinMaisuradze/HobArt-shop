@@ -1,18 +1,18 @@
-.contact {
+.contact-section {
   padding: 2rem 1rem;
   max-width: 1100px;
   margin: 0 auto;
-  color: #fff; /* ტექსტი თეთრი */
+  color: #fff;
   background: transparent;
 }
 
-.contact h2 {
+.contact-section h2 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
   color: #fff;
 }
 
-.contact p {
+.contact-section p {
   margin-bottom: 1rem;
   color: #fff;
 }
@@ -33,7 +33,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
-/* ტექსტი მარჯვნივ */
+/* კონტაქტის ინფორმაცია მარჯვნივ */
 .contact-info {
   flex: 1 1 40%;
   text-align: left;
@@ -49,9 +49,10 @@
   text-decoration: underline;
 }
 
+/* ღილაკი თეთრი ფონით და შავი ტექსტით */
 .btn-primary {
-  background-color: #ffffff;
-  color: #fff;
+  background-color: #ffffff; /* თეთრი ფონია */
+  color: #000; /* ტექსტი შავია */
   padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none;
@@ -59,10 +60,10 @@
 }
 
 .btn-primary:hover {
-  background-color: #00032c;
+  background-color: #f0f0f0; /* ოდნავ მუქი თეთრი ჰოვერზე */
 }
 
-/* მობილურზე ქვემოთ ჩამოიტანოს */
+/* მობილურებისთვის */
 @media (max-width: 768px) {
   .contact-layout {
     flex-direction: column;

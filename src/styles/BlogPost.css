@@ -1,0 +1,64 @@
+.blog-post {
+  max-width: 750px;
+  margin: 50px auto;
+  padding: 30px 25px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  line-height: 1.75;
+  color: #3a3a3a;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.blog-post h1 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #2c5d50;
+  text-align: center;
+  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+}
+
+.blog-image {
+  width: 100%;
+  border-radius: 16px;
+  margin: 25px 0;
+  height: auto;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.blog-image:hover {
+  transform: scale(1.02);
+  filter: brightness(102%);
+}
+
+.blog-text {
+  font-size: 16px;
+  color: #4a4a4a;
+  white-space: pre-wrap;
+  text-align: justify;
+  margin-top: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #fcfcfc; /* ძალიან მსუბუქი ნაზი ფონით */
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 30px;
+  background: #5c8c87;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+  background: #7fb3ae;
+  transform: translateY(-2px);
+}
